@@ -81,6 +81,7 @@ public class DemoRunner implements CommandLineRunner {
         System.out.println();
     }
 
+    // REVIEW #6: cause.getMessage() can return null; circular cause chains would loop forever
     private String extractRootCause(Exception e) {
         Throwable cause = e;
         while (cause.getCause() != null) {

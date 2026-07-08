@@ -58,6 +58,7 @@ cd client && java -jar target/mtls-client.jar
 
   ✅ SUCCESS! Server response:
      {"message":"Hello from mTLS server!","clientCN":"CN=demo-client,O=mTLS-Demo","timestamp":"..."}
+<!-- REVIEW #7: CN ordering is wrong here. Java RFC 2253 format returns "O=mTLS-Demo,CN=demo-client" -->
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -67,6 +68,7 @@ cd client && java -jar target/mtls-client.jar
   ✅ EXPECTED FAILURE! Connection rejected by server.
      Exception: SSLHandshakeException
      Message:   Received fatal alert: bad_certificate
+<!-- REVIEW #8: Exception class is wrong. Spring wraps in ResourceAccessException, not SSLHandshakeException -->
 ```
 
 ---
@@ -272,6 +274,7 @@ using the **actual values from this project**:
         │   "clientCN":"CN=demo-client,O=mTLS-Demo"} │
         │                                            │
 ```
+<!-- REVIEW #7: CN ordering is wrong above. Java RFC 2253 format returns "O=mTLS-Demo,CN=demo-client" -->
 
 ### Failed Handshake (without client certificate)
 

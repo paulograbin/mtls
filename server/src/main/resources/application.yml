@@ -1,3 +1,4 @@
+# REVIEW #3: ${user.dir} path resolution is fragile — only works when jar is launched from server/ directory
 server:
   port: 8443
   ssl:

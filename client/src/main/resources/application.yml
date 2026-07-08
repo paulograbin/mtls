@@ -1,3 +1,4 @@
+# REVIEW #4: server.port is unused since web-application-type=none (no web server starts)
 server:
   port: 8080
 
@@ -9,6 +10,7 @@ spring:
 
 mtls:
   server-url: https://localhost:8443/hello
+  # REVIEW #3: ${user.dir} path resolution is fragile — only works when jar is launched from client/ directory
   key-store: file:${user.dir}/../certs/client-keystore.p12
   key-store-password: changeit
   trust-store: file:${user.dir}/../certs/client-truststore.p12

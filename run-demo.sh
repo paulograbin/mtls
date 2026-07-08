@@ -30,6 +30,7 @@ echo "▶ Step 3: Building client application..."
 echo "  Done."
 echo ""
 
+# REVIEW #5: Step numbering mismatch — comments say "Step 3" but echo says "Step 4"
 # -------------------------------------------------------------------
 # Step 3: Start the server
 # -------------------------------------------------------------------
@@ -37,6 +38,7 @@ echo "▶ Step 4: Starting mTLS server on https://localhost:8443 ..."
 cd server
 java -jar target/mtls-server.jar &
 SERVER_PID=$!
+# REVIEW #2: No signal trap — server process orphaned on Ctrl+C. Add: trap 'kill $SERVER_PID 2>/dev/null; wait $SERVER_PID 2>/dev/null' EXIT INT TERM
 cd "$PROJECT_DIR"
 
 # Wait for server to be ready

@@ -38,6 +38,7 @@ public class NoMtlsClientConfig {
 
     @Bean("noMtlsRestTemplate")
     public RestTemplate noMtlsRestTemplate() throws Exception {
+        // REVIEW #1: Resource leak — InputStream is never closed. Use try-with-resources.
         // Load ONLY the truststore (to verify server cert)
         // NO keystore → no client certificate will be presented
         KeyStore ts = KeyStore.getInstance("PKCS12");
