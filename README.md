@@ -21,7 +21,7 @@ One call succeeds (with proper client certificate), one call fails (without it).
 
 ### Prerequisites
 
-- Java 17+
+- Java 25+
 - Maven 3.8+
 - OpenSSL
 - `keytool` (included with JDK)

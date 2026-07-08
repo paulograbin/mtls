@@ -18,7 +18,7 @@
     <description>Client that demonstrates calling a server with and without mTLS</description>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
     </properties>
 
     <dependencies>
