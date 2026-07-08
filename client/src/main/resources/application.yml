@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mtls-client
+  main:
+    web-application-type: none  # No web server needed, just run and exit
+
+mtls:
+  server-url: https://localhost:8443/hello
+  key-store: file:${user.dir}/../certs/client-keystore.p12
+  key-store-password: changeit
+  trust-store: file:${user.dir}/../certs/client-truststore.p12
+  trust-store-password: changeit
