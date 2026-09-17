@@ -42,7 +42,10 @@ public class NoMtlsClientConfig {
         // Load ONLY the truststore (to verify server cert)
         // NO keystore → no client certificate will be presented
         KeyStore ts = KeyStore.getInstance("PKCS12");
-        ts.load(trustStore.getInputStream(), trustStorePassword.toCharArray());
+
+        try (var is = trustStore.getInputStream()) {
+            ts.load(is, trustStorePassword.toCharArray());
+        }
 
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         tmf.init(ts);
