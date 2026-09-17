@@ -457,10 +457,10 @@ Add this JVM flag to see the full TLS handshake in the console:
 
 ```bash
 # Full SSL debug output (very verbose — shows every handshake message)
-java -Djavax.net.ssl.debug=all -jar target/mtls-server.jar
+java -Djavax.net.debug=all -jar target/mtls-server.jar
 
 # Just handshake messages (less verbose)
-java -Djavax.net.ssl.debug=ssl:handshake -jar target/mtls-server.jar
+java -Djavax.net.debug=ssl:handshake -jar target/mtls-server.jar
 ```
 
 With debug enabled, you'll see output like:
