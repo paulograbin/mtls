@@ -39,18 +39,18 @@ public class MtlsClientConfig {
 
     @Bean("mtlsRestTemplate")
     public RestTemplate mtlsRestTemplate() throws Exception {
-        // REVIEW #1: Resource leak — InputStream is never closed. Use try-with-resources.
-        // Load the client keystore (contains client private key + certificate)
-        KeyStore ks = KeyStore.getInstance("PKCS12");
-        ks.load(keyStore.getInputStream(), keyStorePassword.toCharArray());
+        KeyStore keystore = KeyStore.getInstance("PKCS12");
+        try(var is = keyStore.getInputStream()) {
+            keystore.load(is, keyStorePassword.toCharArray());
+        }
 
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-        kmf.init(ks, keyStorePassword.toCharArray());
+        kmf.init(keystore, keyStorePassword.toCharArray());
 
-        // REVIEW #1: Resource leak — InputStream is never closed. Use try-with-resources.
-        // Load the truststore (contains CA certificate to verify server)
         KeyStore ts = KeyStore.getInstance("PKCS12");
-        ts.load(trustStore.getInputStream(), trustStorePassword.toCharArray());
+        try(var is = trustStore.getInputStream()) {
+            ts.load(is, trustStorePassword.toCharArray());
+        }
 
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         tmf.init(ts);
