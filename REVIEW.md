@@ -4,19 +4,6 @@
 
 ### MEDIUM
 
-#### 1. Resource leak in client config classes
-
-**Files:**
-- `client/src/main/java/com/example/mtls/client/MtlsClientConfig.java` (lines 44, 51)
-- `client/src/main/java/com/example/mtls/client/NoMtlsClientConfig.java` (line 44)
-
-`InputStream` from `keyStore.getInputStream()` / `trustStore.getInputStream()` is never closed. `KeyStore.load()` does NOT close the stream per its API contract. Should use try-with-resources:
-
-```java
-try (var is = keyStore.getInputStream()) {
-    ks.load(is, keyStorePassword.toCharArray());
-}
-```
 
 #### 2. No signal trap in `run-demo.sh` (line 39)
 
@@ -35,12 +22,6 @@ trap 'kill $SERVER_PID 2>/dev/null; wait $SERVER_PID 2>/dev/null' EXIT INT TERM
 Uses `file:${user.dir}/../certs/...` which only works when jars are launched from their own directory (as `run-demo.sh` does). Running from any other directory breaks it.
 
 ### LOW
-
-#### 4. Unused `server.port: 8080` in client config
-
-**File:** `client/src/main/resources/application.yml` (line 2)
-
-Has no effect since `web-application-type: none` is set. Dead configuration that could confuse readers.
 
 #### 5. Step numbering mismatch in `run-demo.sh`
 
